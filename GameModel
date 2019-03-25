@@ -1,0 +1,118 @@
+public class GameModel {
+
+	private int width, height, steps;
+	private boolean [][] board;
+	
+	/**
+     * Constructor, initializes  <b>board</b> 
+	 * 
+	 * @param height
+	 *		the height of the board
+	 * @param width
+	 *		the width of the board
+     */
+	public GameModel(int width, int height){
+		this.height = height;
+		this.width = width;
+		board = new boolean [height][width];
+	}
+	
+	/**
+     * Getting method for height
+	 * 
+	 * @return height
+	 *		integer value of board height
+     */
+	public int getHeight(){
+		return this.height;
+	}
+	
+	/**
+     * Getting method for width
+	 * 
+	 * @return width
+	 *		integer value of board width
+     */
+	public int getWidth(){
+		return this.width;
+	}
+	
+	/**
+     * method that checks if the board cell is on
+	 * 
+	 *@param i
+	 * 		integer value of column height
+	 *@param j
+	 * 		integer value of column width
+	 * @return result
+	 *		boolean value if cell [i][j] is on.
+     */
+	public boolean isON (int i, int j){
+		boolean result = false; 
+		
+		if(board[i][j] == true){
+			result = true;
+		}
+		
+		return result;
+	}
+	
+	/**
+     * method that resets all of the GameBoard's cells to false
+	 *
+     */
+	public void reset(){
+		for (int j = 0; j < getHeight(); j++){
+			for (int i = 0; i < getWidth(); i++){
+				
+				board[j][i] = false;
+			}
+		}
+		
+		this.steps = 0;
+	}
+	
+	/**
+     * method that manually sets a specific board's cell 
+	 * to on or off
+	 *
+	 *@param i
+	 * 		integer value of column height
+	 *@param j
+	 * 		integer value of column width
+	 *@param value
+	 *		boolean value to set change the cell to
+	 * 
+     */
+	public void set(int i, int j, boolean value){
+		board[j][i] = value;
+	}
+	
+	/**
+     * returns a string representation of the board
+     *
+     * @return
+     *      the string representation
+     */
+	public String toString(){
+		
+		String boardStr = "";
+		for (int i = 0; i < height; i++){
+			boardStr = boardStr + "[";
+			
+			for (int j = 0; j <width; j++){
+				boardStr = boardStr + board[i][j];
+				
+				if (j!= width -1){
+					boardStr = boardStr + ",";
+					
+				}
+			}
+			
+		boardStr = boardStr + "]\n";
+		}
+		
+		return boardStr;
+	}
+
+}
