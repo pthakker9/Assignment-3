@@ -1,0 +1,120 @@
+public class QueueImplementation<E> implements Queue<E> {
+
+	private static final int MAX_QUEUE_SIZE = 100;
+	private E[] q;
+	private int front, rear, count;
+	
+	/**
+     * Constructor, initializes  <b>q</b> 
+	 * using private variable <b>MAX_QUEUE_SIZE<b>
+     */
+	@SuppressWarnings("unchecked")
+	public QueueImplementation (){
+		q = (E[]) new Object [MAX_QUEUE_SIZE];
+		front = 0;
+		rear = 0;
+		count = 0;
+	}
+	
+	/**
+     * Constructor, initializes  <b>q</b>
+	 *
+	 *@param size
+	 *	reference to an integer value to add upper 
+	 *	constraint to q
+     */
+	@SuppressWarnings("unchecked")
+	public QueueImplementation (int size){
+		q = (E[]) new Object [size];
+		front = 0;
+		rear = 0;
+		count = 0;
+	}
+	
+	/**
+     * implementation of the method <b>dequeue</b> 
+     * from the interface <b>Queue</b>.
+     * @return 
+     *      The reference to removed Solution
+     */
+	 
+	public E dequeue(){
+		E item = q[front];
+		front = (front+1) % q.length;
+		count--;
+		return (item);
+	}
+	
+	/**
+     * implementation of the method <b>enqueue</b> 
+     * from the interface <b>Queue</b>.
+     * @param element
+     *      The reference to the new element
+     */
+	 
+	@SuppressWarnings("unchecked")
+	public void enqueue(E element){
+		if (size() < q.length){
+			q[rear] = element;
+			rear = (rear+1) % q.length;
+			count++;
+		}else{
+			expand();
+			enqueue(element);
+		}
+	}
+	
+	/**
+     * implementation of the method to 
+	 * expand the ArrayList object q
+	 * from the interface <b>Queue</b>.
+     */
+	@SuppressWarnings("unchecked")
+	public void expand(){
+		E[] newer = (E[]) new Object [q.length*2];
+		
+		for (int i = 0; i < count; i++){
+			newer[i] = q[front];
+			front = (front+1)%q.length;
+			front = 0;
+			rear = count;
+			q = newer;
+		}
+	}
+	
+	/**
+     * implementation of the method <b>isEmpty</b> 
+     * from the interface <b>Queue</b>.
+     * @return 
+     *      true if the queue is empty 
+     */
+	 
+	@SuppressWarnings("unchecked")
+	public boolean isEmpty(){
+		return(count==0);
+	}
+	
+	/**
+     * implementation of the method <b>peek</b> 
+     * from the interface <b>Queue</b>.
+	 
+     * @return 
+     *      object at q[index]
+     */
+	@SuppressWarnings("unchecked")
+	public E peek(){
+		return q [front];
+	}
+	
+	/**
+     * implementation of the method <b>size</b> 
+     * from the interface <b>Queue</b>.
+	 
+     * @return count
+     *      an integer value of the object q's size
+     */
+	@SuppressWarnings("unchecked")
+	public int size(){
+		return count;
+	}
+}
